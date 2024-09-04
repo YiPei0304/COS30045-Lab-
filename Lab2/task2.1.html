@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Tia Yi Pei"/>
+
+	<title>Task 2.1 D3 Data Binding</title>
+	<link rel="stylesheet" href="../stylesheet.css">
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../Lab2/task2.2.html">Task 2.2</a></li>
+                <li><a href="../Lab2/task2.3.html">Task 2.3</a></li>
+                <li><a href="../Lab2/task2.4.html">Task 2.4</a></li>
+            </ul>
+        </nav>
+    </header>
+	<h1>The D3 Journey start here...</h1>
+
+    <script>
+
+        var dataset=[14, 5, 26, 23, 9];
+
+        d3.select("body").selectAll("p")
+        .data(dataset)
+        .enter()
+        .append("p")
+        .style("color",function(d){
+            if(d>10){
+                return"red"
+            }
+        })
+        .text(function(d)
+        {
+            if(d>10)
+        {
+            return "Warning: NAME watched "+ d +" cat videos today.";
+        }
+        else{
+            return "NAME watched" +d + " cat videos today.";
+        }
+        });
+        
+    </script>
+
+    <br>
+    <br>
+
+    <footer><b>COS30045 Data Visualisation <br> Tia's Blog</b></footer>
+
+</body>
+</html>

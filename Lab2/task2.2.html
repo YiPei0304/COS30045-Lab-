@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Tia Yi Pei"/>
+
+	<title>Task 2.2 D3 Data Binding</title>
+	<link rel="stylesheet" href="../stylesheet.css">
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../Lab2/task2.1.html">Task 2.1</a></li>
+                <li><a href="../Lab2/task2.3.html">Task 2.3</a></li>
+                <li><a href="../Lab2/task2.4.html">Task 2.4</a></li>
+            </ul>
+        </nav>
+    </header>
+	<h1>The D3 Journey start here...</h1>
+
+    <script>
+        /*this is to adjust the svg area*/
+        var w=500;
+        var h=150;
+        var barPadding=3;
+
+        var dataset =[14, 5, 26, 23, 9];
+
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("fill","limegreen")
+              
+
+        //this part is for creating the bar
+        svg.selectAll("rect")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i){
+            return i * (w / dataset.length);
+        })
+        .attr("y", function(d){
+            return h - (d*4)
+        })
+        .attr("width", function(d){
+            return (w/dataset.length-barPadding);
+        })
+        .attr("height", function(d){
+            return d*4;
+        });
+
+        svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d){
+            return d;
+        })
+        .attr("fill", "black") /*text color*/
+        .attr("x", function(d, i){
+            return i * (w/dataset.length) +16;
+        })
+        .attr("y", function(d){
+            return h - (d*4) + 14;
+        });
+                
+    </script>
+
+    <br>
+    <br>
+
+    <footer><b>COS30045 Data Visualisation <br> Tia's Blog</b></footer>
+
+</body>
+</html>

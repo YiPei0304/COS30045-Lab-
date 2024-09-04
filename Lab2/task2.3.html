@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description"	content="Data Visualisation Exercise 1"/>
+	<meta name="keywords"		  content="HTML, CSS"/>
+	<meta name="author"			  content="Tia Yi Pei"/>
+
+	<title>Task 2.3 D3 Plot</title>
+    <link rel="stylesheet" href="../stylesheet.css">
+	
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../Lab2/task2.1.html">Task 2.1</a></li>
+                <li><a href="../Lab2/task2.2.html">Task 2.2</a></li>
+                <li><a href="../Lab2/task2.4.html">Task 2.4</a></li>
+            </ul>
+        </nav>
+    </header>
+	<h1>The D3 Journey start here...</h1>
+
+    <script>
+        /*this is to adjust the svg area*/
+        var w=600;
+        var h=100;
+
+        var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("fill","rgb(105, 90, 205)")
+
+        var dataset =[
+            [5, 20],
+            [480, 90],
+            [250, 50],
+            [100, 33],
+            [330, 95],
+            [410, 12],
+            [475, 44],
+            [25, 67],
+            [85, 21],
+            [220, 88]
+        ];
+
+        svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d, i){
+            return d[0];
+        })
+        .attr("cy", function(d){
+            return d[1];
+        })
+        .attr("r", 5)
+        .attr("fill", "slategrey");
+
+        svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d){
+            return d[0] + "," + d[1];
+        })
+        .attr("fill", "black") /*text color*/
+        .attr("x", function(d){
+            return d[0] + 10;
+        })
+        .attr("y", function(d){
+            return d[1];
+        });
+                
+    </script>
+
+    <br>
+    <br>
+
+    <footer><b>COS30045 Data Visualisation <br> Tia's Blog</b></footer>
+
+</body>
+</html>
