@@ -27,10 +27,12 @@
     <h2>Author: Tia Yi Pei</h2>
 
     <script>
+        //define dimensions and padding for the chart
         var w = 600;
         var h = 250;
         var padding = 50;
 
+        //define dataset for the scatter plot
         var dataset = [
             [5, 20],
             [500, 90],
@@ -44,6 +46,7 @@
             [220, 88],
         ];
 
+        //define scales for x and y axis
         var xScale = d3.scaleLinear()
             .domain([d3.min(dataset, function (d) { return d[0]; }), d3.max(dataset, function (d) { return d[0]; })])
             .range([padding, w - padding]);
@@ -52,11 +55,13 @@
             .domain([d3.min(dataset, function (d) { return d[1]; }), d3.max(dataset, function (d) { return d[1]; })])
             .range([h - padding, padding]);
 
+        //create SVG element
         var svg = d3.select("body")
             .append("svg")
             .attr("width", w)
             .attr("height", h);
 
+        //add circles to SVG for each data point
         svg.selectAll("circle")
             .data(dataset)
             .enter()
@@ -70,6 +75,7 @@
             .attr("r", 5)
             .attr("fill", "slategrey");
 
+        //add text lables for the value
         svg.selectAll("text")
             .data(dataset)
             .enter()
