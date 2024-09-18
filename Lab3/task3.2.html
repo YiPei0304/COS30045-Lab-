@@ -28,30 +28,30 @@
 
     <script>
         var w = 700;
-        var h = 300;
+        var h = 400;
         var padding = 60;
 
         var dataset = [
-            [5, 20],
-            [500, 90],
-            [250, 50],
-            [100, 33],
-            [330, 95],
-            [410, 12],
-            [475, 44],
-            [25, 67],
-            [85, 21],
-            [220, 88],
+            [2, 8],
+            [3, 5],
+            [5, 17],
+            [6, 6],
+            [6, 12],
+            [7, 20],
+            [8, 22],
+            [10, 11],
+            [5, 12],
+            [6, 16],
         ];
 
         
 
         var xScale = d3.scaleLinear()
-            .domain([d3.min(dataset, function (d) { return d[0]; }) - 5, d3.max(dataset, function (d) { return d[0]; }) + 10])
+            .domain([d3.min(dataset, function (d) { return d[0]; }) - 1, d3.max(dataset, function (d) { return d[0]; }) + 10])
             .range([padding, w - padding]);
 
         var yScale = d3.scaleLinear()
-            .domain([d3.min(dataset, function (d) { return d[1]; }) - 10, d3.max(dataset, function (d) { return d[1]; }) + 10])
+            .domain([d3.min(dataset, function (d) { return d[1]; }) - 5, d3.max(dataset, function (d) { return d[1]; }) + 10])
             .range([h - padding, padding]);
 
         var svg = d3.select("body")
@@ -105,9 +105,22 @@
         svg.append("g")
         .attr("transform","translate("+ padding +", 0)")
         .call(yAxis);
+        
+        // Add X axis label:
+        svg.append("text")
+            .attr("text-anchor", "end")
+            .attr("x", w - padding) 
+            .attr("y", h - padding + 40)  
+            .text("Tree Age (years)");
 
-            
-
+        // Add Y axis label:
+        svg.append("text")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-90)") 
+            .attr("x", -padding)  
+            .attr("y", padding - 40)  
+            .text("Tree Height (m)");
+        
     </script>
 
 <footer><b>COS30045 Data Visualisation <br> Tia's Blog</b></footer>
