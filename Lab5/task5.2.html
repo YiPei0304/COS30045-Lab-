@@ -76,23 +76,6 @@
                 return "rgb(0, 0,  " + Math.round(d * 10) + ")";
             });
 
-        // Add text labels to the bars
-        svg1.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d){
-                return d;
-            })
-            .attr("x", function(d, i){
-                return xScale(i) + xScale.bandwidth() / 2; 
-            })
-            .attr("y", function(d){
-                return h - yScale(d) + 14; 
-            })
-            .attr("text-anchor", "middle") 
-            .attr("fill", "white");
-
         // Function to generate a new random dataset and update the chart
         function updateData() {
             var numValues = dataset.length; 
@@ -124,23 +107,6 @@
                     return "rgb(0, 0, " + Math.round(d * 10) + ")";
                 });
 
-            // Update the text labels with a transition effect
-            svg1.selectAll("text")
-                .data(dataset)
-                .transition()
-                .delay(function(d, i) {
-                    return i * 100; 
-                })
-                .duration(500)
-                .text(function(d) {
-                    return d;
-                })
-                .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function(d) {
-                    return h - yScale(d) + 14;
-                });
         }
 
         // Button click event to update the chart
@@ -169,24 +135,6 @@
                 .attr("fill", function(d) {
                     return "rgb(177, 0, " + Math.round(d * 10) + ")";
                 });
-
-            // Update text labels with the same transition effect
-            svg1.selectAll("text")
-                .transition()
-                .delay(function(d, i) {
-                    return i * 50;
-                })
-                .duration(300)
-                .ease(d3.easeCircleOut)
-                .text(function(d) {
-                    return d;
-                })
-                .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function(d) {
-                    return h - yScale(d) + 14;
-                });
         });
 
         // Transition 2
@@ -210,22 +158,6 @@
                     return "rgb(0, 200, " + Math.round(d * 10) + ")";
                 });
 
-            svg1.selectAll("text")
-                .transition()
-                .delay(function(d, i) {
-                    return i * 200;
-                })
-                .duration(1000)
-                .ease(d3.easeElasticOut)
-                .text(function(d) {
-                    return d;
-                })
-                .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function(d) {
-                    return h - yScale(d) + 14;
-                });
         });
     </script>
 

@@ -93,34 +93,7 @@
                     return yScale(d); 
                 });
 
-            // Bind data to text elements for bar labels
-            var text = svg1.selectAll("text")
-                .data(dataset);
-
-            text.enter()
-                .append("text")
-                .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function(d) {
-                    return h - yScale(d) - 10;
-                })
-                .attr("text-anchor", "middle")
-                .text(function(d) {
-                    return d;
-                })
-                .merge(text)
-                .transition()
-                .duration(500)
-                .attr("x", function(d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function(d) {
-                    return h - yScale(d) - 10; 
-                });
-
-            // Remove any text elements for bars that no longer exist
-            text.exit().remove();
+            
         }
 
         // Function to add a new value

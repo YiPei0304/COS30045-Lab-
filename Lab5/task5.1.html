@@ -74,22 +74,8 @@
                 return "rgb(0, 0, " + Math.round(d * 10) + ")"; 
             });
 
-        // Add text labels to the bars
-        svg1.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d){
-                return d;
-            })
-            .attr("x", function(d, i){
-                return xScale(i) + xScale.bandwidth() / 2; 
-            })
-            .attr("y", function(d){
-                return h - yScale(d) + 14; 
-            })
-            .attr("text-anchor", "middle") 
-            .attr("fill", "white");
+            //if want the color be grey (all same)[need change below part also]
+            //.attr("fill", "slategrey")
 
             function updateData() {
             var numValues = dataset.length; // Get number of bars
@@ -118,21 +104,9 @@
                 .attr("fill", function (d) {
                     return "rgb(0, 0, " + Math.round(d * 10) + ")";
                 });
+                //if want the color be grey 
+                //.attr("fill", "slategrey")
 
-            // Update text labels
-            svg1.selectAll("text")
-                .data(dataset)
-                .transition() // Smooth transition for updated text
-                .duration(500)
-                .text(function (d) {
-                    return d;
-                })
-                .attr("x", function (d, i) {
-                    return xScale(i) + xScale.bandwidth() / 2;
-                })
-                .attr("y", function (d) {
-                    return h - yScale(d) + 14;
-                });
         }
 
         // Button click event to update the chart
