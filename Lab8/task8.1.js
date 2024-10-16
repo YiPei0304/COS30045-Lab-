@@ -21,6 +21,8 @@ function init() {
 
     // Load the GeoJSON data (LGA VIC map in your example)
     d3.json("LGA_VIC.json").then(function(json) {
+        //link from InfinityFree hosting to the URL like https://raw.githubusercontent.com/YiPei0304/COS30045-Lab-/refs/heads/main/Lab8/LGA_VIC.json
+        // local use: LGA_VIC.json
         // Bind data and create one path per GeoJSON feature
         svg.selectAll("path")
            .data(json.features)
