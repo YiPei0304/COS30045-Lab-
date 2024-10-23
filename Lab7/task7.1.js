@@ -1,7 +1,7 @@
 function init() {
     var w = 600;
     var h = 300;
-    var padding = 40;
+    var padding = 60;
 
     // Load the CSV data
     d3.csv("unemployment.csv", function (d) {
