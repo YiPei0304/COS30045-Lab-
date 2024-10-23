@@ -1,5 +1,5 @@
 function init() {
-    var w = 300;
+    var w = 500;
     var h = 300;
     var padding = 10;
 
@@ -66,6 +66,32 @@ function init() {
             return yScale(d[0]) - yScale(d[1]); 
         }) 
         .attr("width", xScale.bandwidth());
+
+    // Add a legend for the categories
+    var legend = svg.append("g")
+                    .attr("class", "legend")
+                    .attr("transform", `translate(${w - 450}, ${padding})`);
+
+    var categories = ["apples", "oranges", "grapes"];
+    
+    categories.forEach(function(category, index) {
+        var legendRow = legend.append("g")
+                              .attr("transform", `translate(0, ${index * 20})`);
+        
+        // Add color box
+        legendRow.append("rect")
+                 .attr("width", 12)
+                 .attr("height", 12)
+                 .attr("fill", color(index));
+        
+        // Add text label
+        legendRow.append("text")
+                 .attr("x", 18)
+                 .attr("y", 10)
+                 .text(category)
+                 .attr("font-size", "12px")
+                 .attr("alignment-baseline", "middle");
+    });
 }
 
 window.onload = init;

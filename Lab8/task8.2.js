@@ -91,19 +91,66 @@ function init() {
                    // Hide the tooltip on mouseout
                    tooltip.style("opacity", 0);
                });
+            
+            // Add legend for the color scale
+            var legendWidth = 200;
+            var legendHeight = 10;
 
-            // Optional: Load and plot city points (e.g., major cities)
-            d3.csv("VIC_city.csv").then(function(cityData) {
-                svg.selectAll("circle")
-                   .data(cityData)
-                   .enter()
-                   .append("circle")
-                   .attr("cx", d => projection([d.lon, d.lat])[0])
-                   .attr("cy", d => projection([d.lon, d.lat])[1])
-                   .attr("r", 5)
-                   .style("fill", "red")
-                   .style("opacity", 0.75);
-            });
+            var legend = svg.append("g")
+                            .attr("class", "legend")
+                            .attr("transform", `translate(${w - legendWidth - 20}, 20)`);
+
+            var legendScale = d3.scaleLinear()
+                                .domain(color.domain())
+                                .range([0, legendWidth]);
+
+            var legendAxis = d3.axisBottom(legendScale)
+                               .ticks(5)
+                               .tickFormat(d3.format(".0f"));
+
+            legend.selectAll("rect")
+                  .data(color.range().map(function(d) {
+                      var inverse = color.invertExtent(d);
+                      if (inverse[0] === undefined) inverse[0] = legendScale.domain()[0];
+                      if (inverse[1] === undefined) inverse[1] = legendScale.domain()[1];
+                      return inverse;
+                  }))
+                  .enter().append("rect")
+                  .attr("x", d => legendScale(d[0]))
+                  .attr("y", 0)
+                  .attr("width", d => legendScale(d[1]) - legendScale(d[0]))
+                  .attr("height", legendHeight)
+                  .style("fill", d => color(d[0]));
+
+            legend.append("g")
+                  .attr("transform", `translate(0, ${legendHeight})`)
+                  .call(legendAxis);
+            
+
+        // Load and plot city points (e.g., major cities)
+        d3.csv("VIC_city.csv").then(function(cityData) {
+        svg.selectAll("circle")
+       .data(cityData)
+       .enter()
+       .append("circle")
+       .attr("cx", d => projection([+d.lon, +d.lat])[0]) // Longitude first
+       .attr("cy", d => projection([+d.lon, +d.lat])[1]) // Latitude second
+       .attr("r", 5)
+       .style("fill", "red")
+       .style("opacity", 0.75)
+       .on("mouseover", function(event, d) {
+           // Show the tooltip with the correct city name key
+           var cityName = d.place;  // show city name 
+           tooltip.style("left", (event.pageX + 10) + "px")
+                  .style("top", (event.pageY - 25) + "px")
+                  .style("opacity", 1)
+                  .html(`<strong>${cityName}</strong>`); // Use the correct city name
+       })
+       .on("mouseout", function() {
+           // Hide the tooltip
+           tooltip.style("opacity", 0);
+       });
+});
         }).catch(function(error) {
             console.error("Error loading the GeoJSON file: ", error);
         });
@@ -111,5 +158,6 @@ function init() {
         console.error("Error loading the CSV file: ", error);
     });
 }
+
 
 window.onload = init;
